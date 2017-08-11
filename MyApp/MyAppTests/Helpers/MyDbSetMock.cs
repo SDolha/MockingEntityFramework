@@ -9,9 +9,9 @@ using MyApp.Wrappers;
 namespace MyAppTests.Helpers
 {
     /// <summary>
-    /// Mock implementation for IDbSetWrapper using an internal list of objects instead of an actual DbSet.
+    /// Mock implementation for IDbSet using an internal list of objects instead of an actual DbSet.
     /// </summary>
-    class DbSetMock<T> : IDbSetWrapper<T> where T : class
+    class DbSetMock<T> : IDbSet<T> where T : class
     {
         private readonly List<T> internalList;
 

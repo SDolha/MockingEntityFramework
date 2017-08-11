@@ -18,7 +18,7 @@ namespace MyApp.Tests
         public void AddItemsTest()
         {
             // Arrange: set up a context mock with an empty collection of root items, exposed through a provider mock.
-            Mock<IMyContextWrapper> myContextMock = new Mock<IMyContextWrapper>();
+            Mock<IMyContext> myContextMock = new Mock<IMyContext>();
             var myRootItems = new DbSetMock<MyRootItem>();
             myContextMock.Setup(m => m.MyRootItems).Returns(myRootItems);
             Mock<IMyContextProvider> myContextProvider = new Mock<IMyContextProvider>();
@@ -37,7 +37,7 @@ namespace MyApp.Tests
         public void GetItemsTest()
         {
             // Arrange: set up a context mock with an initial collection of root items, exposed through a provider mock.
-            Mock<IMyContextWrapper> myContextMock = new Mock<IMyContextWrapper>();
+            Mock<IMyContext> myContextMock = new Mock<IMyContext>();
             var myRootItems = new DbSetMock<MyRootItem>(MyMockedRootItems);
             myContextMock.Setup(m => m.MyRootItems).Returns(myRootItems);
             Mock<IMyContextProvider> myContextProvider = new Mock<IMyContextProvider>();
@@ -56,7 +56,7 @@ namespace MyApp.Tests
         public void UpdateAllChildItemValuesTest()
         {
             // Arrange: set up a context mock with an initial collection of child items (obtained from mocked root items), exposed through a provider mock.
-            Mock<IMyContextWrapper> myContextMock = new Mock<IMyContextWrapper>();
+            Mock<IMyContext> myContextMock = new Mock<IMyContext>();
             var myChildItems = new DbSetMock<MyChildItem>(MyMockedRootItems.SelectMany(r => r.MyChildItems));
             myContextMock.Setup(m => m.MyChildItems).Returns(myChildItems);
             Mock<IMyContextProvider> myContextProvider = new Mock<IMyContextProvider>();
@@ -76,7 +76,7 @@ namespace MyApp.Tests
         public void RemoveItemsTest()
         {
             // Arrange: set up a context mock with an initial collection of root items, exposed through a provider mock.
-            Mock<IMyContextWrapper> myContextMock = new Mock<IMyContextWrapper>();
+            Mock<IMyContext> myContextMock = new Mock<IMyContext>();
             var myRootItems = new DbSetMock<MyRootItem>(MyMockedRootItems);
             myContextMock.Setup(m => m.MyRootItems).Returns(myRootItems);
             Mock<IMyContextProvider> myContextProvider = new Mock<IMyContextProvider>();

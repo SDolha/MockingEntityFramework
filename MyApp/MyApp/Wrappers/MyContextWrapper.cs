@@ -9,7 +9,7 @@ namespace MyApp.Wrappers
     /// <summary>
     /// Wrapper over MyDatabaseEntities (DbContext), extracting interface for testability reasons.
     /// </summary>
-    class MyContextWrapper : IMyContextWrapper, IDisposable
+    class MyContextWrapper : IMyContext, IDisposable
     {
         /// <summary>
         /// Holds the original MyDatabaseEntities (DbContext) instance.
@@ -26,13 +26,13 @@ namespace MyApp.Wrappers
             internalContext = context;
         }
 
-        // Fields that hold IDbSetWrapper instances.
-        private IDbSetWrapper<MyRootItem> myRootItems;
-        private IDbSetWrapper<MyChildItem> myChildItems;
+        // Fields that hold IDbSet instances.
+        private IDbSet<MyRootItem> myRootItems;
+        private IDbSet<MyChildItem> myChildItems;
 
-        // Uses IDbSetWrappers (singleton instances under current context) over actual database model classes.
-        public IDbSetWrapper<MyRootItem> MyRootItems => myRootItems ?? (myRootItems = new DbSetWrapper<MyRootItem>(internalContext.MyRootItems));
-        public IDbSetWrapper<MyChildItem> MyChildItems => myChildItems ?? (myChildItems = new DbSetWrapper<MyChildItem>(internalContext.MyChildItems));
+        // Uses IDbSets (singleton instances under current context) over actual database model classes.
+        public IDbSet<MyRootItem> MyRootItems => myRootItems ?? (myRootItems = new DbSetWrapper<MyRootItem>(internalContext.MyRootItems));
+        public IDbSet<MyChildItem> MyChildItems => myChildItems ?? (myChildItems = new DbSetWrapper<MyChildItem>(internalContext.MyChildItems));
 
         // Wrapper commit method.
         public void SaveChanges() => internalContext.SaveChanges();

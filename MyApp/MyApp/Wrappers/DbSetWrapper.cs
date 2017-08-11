@@ -11,7 +11,7 @@ namespace MyApp.Wrappers
     /// <summary>
     /// Wrapper over DbSet, extracting interface for testability reasons.
     /// </summary>
-    class DbSetWrapper<T> : IDbSetWrapper<T>, IEnumerable<T> where T:class
+    class DbSetWrapper<T> : IDbSet<T>, IEnumerable<T> where T:class
     {
         /// <summary>
         /// Holds the original DbSet instance.

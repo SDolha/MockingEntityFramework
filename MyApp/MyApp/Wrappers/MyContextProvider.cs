@@ -14,6 +14,6 @@ namespace MyApp.Wrappers
         /// <summary>
         /// Creates a MyDatabaseEntities (DbContext) wrapped as the returned instance.
         /// </summary>
-        public IMyContextWrapper CreateContext() => new MyContextWrapper(new MyDatabaseEntities());
+        public IMyContext CreateContext() => new MyContextWrapper(new MyDatabaseEntities());
     }
 }
