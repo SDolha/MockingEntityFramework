@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MyChildItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MyRootItemId" Type="int" />
+          <Property Name="MyChildValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MyRootItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MyRootValue" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_MyChildItems_MyRootItems">
+          <End Role="MyRootItems" Type="Self.MyRootItems" Multiplicity="0..1" />
+          <End Role="MyChildItems" Type="Self.MyChildItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyRootItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MyChildItems">
+              <PropertyRef Name="MyRootItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyDatabaseModelStoreContainer">
+          <EntitySet Name="MyChildItems" EntityType="Self.MyChildItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyRootItems" EntityType="Self.MyRootItems" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MyChildItems_MyRootItems" Association="Self.FK_MyChildItems_MyRootItems">
+            <End Role="MyRootItems" EntitySet="MyRootItems" />
+            <End Role="MyChildItems" EntitySet="MyChildItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MyChildItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MyRootItemId" Type="Int32" />
+          <Property Name="MyChildValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MyRootItem" Relationship="Self.FK_MyChildItems_MyRootItems" FromRole="MyChildItems" ToRole="MyRootItems" />
+        </EntityType>
+        <EntityType Name="MyRootItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MyRootValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MyChildItems" Relationship="Self.FK_MyChildItems_MyRootItems" FromRole="MyRootItems" ToRole="MyChildItems" />
+        </EntityType>
+        <Association Name="FK_MyChildItems_MyRootItems">
+          <End Role="MyRootItems" Type="Self.MyRootItem" Multiplicity="0..1" />
+          <End Role="MyChildItems" Type="Self.MyChildItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MyRootItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MyChildItems">
+              <PropertyRef Name="MyRootItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MyChildItems" EntityType="Self.MyChildItem" />
+          <EntitySet Name="MyRootItems" EntityType="Self.MyRootItem" />
+          <AssociationSet Name="FK_MyChildItems_MyRootItems" Association="Self.FK_MyChildItems_MyRootItems">
+            <End Role="MyRootItems" EntitySet="MyRootItems" />
+            <End Role="MyChildItems" EntitySet="MyChildItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDatabaseModelStoreContainer" CdmEntityContainer="MyDatabaseEntities">
+          <EntitySetMapping Name="MyChildItems">
+            <EntityTypeMapping TypeName="MyDatabaseModel.MyChildItem">
+              <MappingFragment StoreEntitySet="MyChildItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MyRootItemId" ColumnName="MyRootItemId" />
+                <ScalarProperty Name="MyChildValue" ColumnName="MyChildValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyRootItems">
+            <EntityTypeMapping TypeName="MyDatabaseModel.MyRootItem">
+              <MappingFragment StoreEntitySet="MyRootItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MyRootValue" ColumnName="MyRootValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
