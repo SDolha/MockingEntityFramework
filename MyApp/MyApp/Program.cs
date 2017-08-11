@@ -12,6 +12,7 @@ namespace MyApp
         {
             var service = new MyService();
             service.AddItems();
+            service.UpdateAllChildItemValues("(updated)");
             foreach (var rootItem in service.GetItems())
             {
                 Console.WriteLine($"Root item {rootItem.Id}: {rootItem.MyRootValue}");

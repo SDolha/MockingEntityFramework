@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Wrappers\DbSetWrapper.cs" />
+    <Compile Include="Wrappers\IDbSetWrapper.cs" />
+    <Compile Include="Wrappers\IMyContextProvider.cs" />
+    <Compile Include="Wrappers\IMyContextWrapper.cs" />
+    <Compile Include="Wrappers\MyContextProvider.cs" />
+    <Compile Include="Wrappers\MyContextWrapper.cs" />
     <Compile Include="MyRootItemDto.cs" />
     <Compile Include="MyChildItem.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
