@@ -75,10 +75,12 @@ namespace MyApp.Tests
         [TestMethod]
         public void RemoveItemsTest()
         {
-            // Arrange: set up a context mock with an initial collection of root items, exposed through a provider mock.
+            // Arrange: set up a context mock with initial collections of root items and child items, exposed through a provider mock.
             Mock<IMyContext> myContextMock = new Mock<IMyContext>();
             var myRootItems = new DbSetMock<MyRootItem>(MyMockedRootItems);
             myContextMock.Setup(m => m.MyRootItems).Returns(myRootItems);
+            var myChildItems = new DbSetMock<MyChildItem>(MyMockedRootItems.SelectMany(r => r.MyChildItems));
+            myContextMock.Setup(m => m.MyChildItems).Returns(myChildItems);
             Mock<IMyContextProvider> myContextProvider = new Mock<IMyContextProvider>();
             myContextProvider.Setup(m => m.CreateContext()).Returns(myContextMock.Object);
 

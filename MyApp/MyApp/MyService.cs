@@ -79,6 +79,8 @@ namespace MyApp
                         rootItem.MyChildItems.Remove(childItem);
                     context.MyRootItems.Remove(rootItem);
                 }
+                foreach (var childItem in context.MyChildItems.ToArray())
+                    context.MyChildItems.Remove(childItem);
                 context.SaveChanges();
             }
         }
